@@ -3,16 +3,25 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux';
 import './index.css';
-import redux, { createStore } from 'redux';
+import { createStore } from 'redux';
 
-const defaultState = {counter: 50}
+const defaultState = {counters: [0,10,3,0, 0, 9 , 88]}
 
 const counterReducer = (state=defaultState, action) => {
+  console.log('this is inside the counterReducer')
+  console.log(state)
+  console.log(action)
+
+
   switch(action.type){
     case "INCREMENT":
-      return {counter: state.counter + 1}
+      let newCounters = state.counters.slice()
+      newCounters[action.index] += 1
+      return {counters: newCounters}
     case "DECREMENT":
-      return {counter: state.counter - 1}
+      newCounters = state.counters.slice()
+      newCounters[action.index] -= 1
+      return {counters: newCounters}
     default:
       return state;
   }
